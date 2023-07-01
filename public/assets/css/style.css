@@ -1,0 +1,46 @@
+.header-wraaper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-btn{
+    background-color: #818CF8;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+.card{
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 10px;
+}
+
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+.input-wrapper label{
+    margin-bottom: 5px;
+}
+
+.input-wrapper .create-btn{
+    color: black;
+}
+
+
+.post-card {
+    position: relative;
+    margin-top: 20px;
+}
+.post-card .edit-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 20px;
+    color: white;
+    background-color: #818CF8;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
