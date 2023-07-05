@@ -34,8 +34,47 @@
     position: relative;
     margin-top: 20px;
 }
-.post-card .edit-btn{
+.post-card .post-actions{
     position: absolute;
+    display: flex;
+    top: 0;
+    right: 0;
+    padding: 5px 20px;
+    color: white;
+    background-color: #818CF8;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.post-card .post-actions .edit-btn{
+    border-right: 1px solid white;
+    padding-right: 5px;
+    margin-right: 5px;
+}
+
+h2{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.post-wrapper{
+    margin-bottom: 50px;
+}
+.comments > form{
+    margin-bottom: 50px;
+}
+.comment-wrapper{
+    padding: 20px 20px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
+}
+
+
+.comment-actions{
+    position: absolute;
+    display: flex;
     top: 0;
     right: 0;
     padding: 5px 20px;

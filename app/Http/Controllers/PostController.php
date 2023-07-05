@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::paginate(10);
+
         return view('pages.posts.index', [
             'posts' => $posts
         ]);
@@ -44,7 +46,15 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $comments = Comment::where('post_id', $post->id)
+            ->orderBy('created_at', 'desc')
+            ->with('user')
+            ->paginate(20);
+
+        return view('pages.posts.show', [
+            'post' => $post,
+            'comments' => $comments
+        ]);
     }
 
     /**
@@ -52,17 +62,21 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if ($post->id !== auth()->id()) {
-            return redirect()->back();
-        }
+        if ($post->user_id !== auth()->id()) return redirect()->back();
+
+        return view('pages.posts.edit', [
+            'post' => $post
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -70,8 +84,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post->id !== auth()->id()) {
-            return redirect()->back();
-        }
+        if ($post->user_id !== auth()->id()) return redirect()->back();
+
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 }
