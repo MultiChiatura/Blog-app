@@ -23,8 +23,18 @@
                             </form>
                         </div>
                     @endif
-                    <h3><a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->name }}</a></h3>
+                    <h3><a href="{{ route('post.show', ['post' => $post->id]) }}" class="text-hover">{{ $post->name }}</a></h3>
                     <p>{{ $post->description }}</p>
+                    <div class="action-buttons">
+                        <a href="{{ route('post.like-toggle', ['post' => $post]) }}" class="create-btn">
+                            {{ $post->postLikes->contains(auth()->id()) ? "Unlike" : 'Like' }}
+                        </a>
+                        @if ($post->post_likes_count)
+                            <span class="post-count">
+                                {{ $post->post_likes_count }}
+                            </span>
+                        @endif
+                    </div>
                 </div>
             @endforeach
             <div>

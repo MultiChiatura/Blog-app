@@ -13,6 +13,16 @@
                 <div class="post-wrapper">
                     <p>{!! $post->text !!}</p>
                 </div>
+                    <div class="action-buttons">
+                        <a href="{{ route('post.like-toggle', ['post' => $post]) }}" class="create-btn">
+                            {{ $post->postLikes->contains(auth()->id()) ? "Unlike" : 'Like' }}
+                        </a>
+                        @if ($post->postLikes->count())
+                            <span class="post-count">
+                                {{ $post->postLikes->count() }}
+                            </span>
+                        @endif
+                    </div>
            </div>
            <div class="card">
                 <div class="comments">
@@ -22,10 +32,10 @@
                             @csrf
                             <div class="input-wrapper">
                                 <label for="text">Comment</label>
-                                <textarea name="text" id="text"> </textarea>
+                                <textarea name="text" id="text"></textarea>
                             </div>
 
-                            <button class="create-btn" type="submit">Store</button>
+                            <button class="create-btn" type="submit">Comment</button>
                         </form>
                     @endif
 

@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::withCount('postLikes')->paginate(10);
 
         return view('pages.posts.index', [
             'posts' => $posts
@@ -89,5 +89,17 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('post.index');
+    }
+
+    /**
+     * Like/Unlike Post by auth user.
+     */
+    public function likeToggle(Post $post)
+    {
+        $post->postLikes->contains(auth()->id()) ?
+            $post->postLikes()->detach([auth()->id()]) :
+            $post->postLikes()->attach([auth()->id()]);
+
+        return redirect()->back();
     }
 }
